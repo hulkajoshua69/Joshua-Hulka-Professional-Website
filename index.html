@@ -19,13 +19,59 @@
 
         /* Base Reset & Typography */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background-color: var(--void-black);
-            color: var(--text-main);
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            background-image: radial-gradient(circle at 50% 0%, #1a1a1f 0%, var(--void-black) 80%);
-        }
+        /* Suno-inspired dynamic background */
+body {
+    background-color: var(--void-black);
+    color: var(--text-main);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    /* Animated dark ambient gradient */
+    background: linear-gradient(-45deg, #0D0D0F, #1a1a1f, #2a1f18, #0D0D0F);
+    background-size: 400% 400%;
+    animation: ambientShift 15s ease infinite;
+}
+
+@keyframes ambientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Glassmorphism Cards (Replacing old .arsenal-card) */
+.arsenal-card {
+    /* Translucent dark background */
+    background: rgba(43, 43, 48, 0.4); 
+    /* The magic glass blur */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(184, 134, 85, 0.1);
+    border-left: 4px solid var(--oil-bronze);
+    padding: 2rem;
+    border-radius: 12px; /* Smooth, modern app corners */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Channel-Strip Glow Hover State */
+.arsenal-card:hover {
+    background: rgba(43, 43, 48, 0.6);
+    border: 1px solid rgba(184, 134, 85, 0.5);
+    border-left: 4px solid var(--bronze-glow);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px -10px rgba(184, 134, 85, 0.3);
+}
+
+/* Adding a subtle glare inside the card */
+.arsenal-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.03), transparent);
+    transform: skewX(-20deg);
+    transition: 0.5s;
+}
+.arsenal-card:hover::before { left: 150%; }
         h1, h2, h3 { text-transform: uppercase; letter-spacing: 2px; }
 
         /* Bi-Level Container */
