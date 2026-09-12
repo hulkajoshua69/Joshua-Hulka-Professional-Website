@@ -19,63 +19,28 @@
 
         /* Base Reset & Typography */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         /* Suno-inspired dynamic background */
-body {
-    background-color: var(--void-black);
-    color: var(--text-main);
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-    line-height: 1.6;
-    /* Animated dark ambient gradient */
-    background: linear-gradient(-45deg, #0D0D0F, #1a1a1f, #2a1f18, #0D0D0F);
-    background-size: 400% 400%;
-    animation: ambientShift 15s ease infinite;
-}
+        body {
+            background-color: var(--void-black);
+            color: var(--text-main);
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(-45deg, #0D0D0F, #1a1a1f, #2a1f18, #0D0D0F);
+            background-size: 400% 400%;
+            animation: ambientShift 15s ease infinite;
+        }
 
-@keyframes ambientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+        @keyframes ambientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-/* Glassmorphism Cards (Replacing old .arsenal-card) */
-.arsenal-card {
-    /* Translucent dark background */
-    background: rgba(43, 43, 48, 0.4); 
-    /* The magic glass blur */
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(184, 134, 85, 0.1);
-    border-left: 4px solid var(--oil-bronze);
-    padding: 2rem;
-    border-radius: 12px; /* Smooth, modern app corners */
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Channel-Strip Glow Hover State */
-.arsenal-card:hover {
-    background: rgba(43, 43, 48, 0.6);
-    border: 1px solid rgba(184, 134, 85, 0.5);
-    border-left: 4px solid var(--bronze-glow);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px -10px rgba(184, 134, 85, 0.3);
-}
-
-/* Adding a subtle glare inside the card */
-.arsenal-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(to right, transparent, rgba(255,255,255,0.03), transparent);
-    transform: skewX(-20deg);
-    transition: 0.5s;
-}
-.arsenal-card:hover::before { left: 150%; }
         h1, h2, h3 { text-transform: uppercase; letter-spacing: 2px; }
 
         /* Bi-Level Container */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 5; }
 
         /* Hero Section */
         .hero {
@@ -83,7 +48,7 @@ body {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            border-bottom: 2px solid var(--oil-bronze);
+            border-bottom: 2px solid rgba(184, 134, 85, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -97,14 +62,39 @@ body {
             gap: 2rem;
             margin: 4rem 0;
         }
+        
+        /* Glassmorphism Cards */
         .arsenal-card {
-            background: var(--raw-steel);
+            background: rgba(43, 43, 48, 0.4); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(184, 134, 85, 0.1);
             border-left: 4px solid var(--oil-bronze);
             padding: 2rem;
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            overflow: hidden;
         }
         .arsenal-card h3 { color: var(--bronze-glow); font-size: 1rem; margin-bottom: 1rem; }
+        
+        .arsenal-card:hover {
+            background: rgba(43, 43, 48, 0.6);
+            border: 1px solid rgba(184, 134, 85, 0.5);
+            border-left: 4px solid var(--bronze-glow);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(184, 134, 85, 0.3);
+        }
+
+        .arsenal-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.03), transparent);
+            transform: skewX(-20deg);
+            transition: 0.5s;
+        }
+        .arsenal-card:hover::before { left: 150%; }
         
         /* Projects (Bi-Level Flow) */
         .project-block {
@@ -117,50 +107,58 @@ body {
         .project-info { flex: 1; }
         .project-media {
             flex: 1;
-            background: var(--weathered-iron);
+            background: rgba(69, 69, 74, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             height: 300px;
-            border: 1px solid var(--oil-bronze);
+            border: 1px solid rgba(184, 134, 85, 0.2);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-muted);
-            /* Upload screenshots here and use background-image */
         }
 
-        /* Terminal Footer */
+        /* Glassmorphism Terminal Footer */
         .terminal-footer {
-            background: #000;
+            background: rgba(13, 13, 15, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             padding: 3rem;
             font-family: 'Courier New', Courier, monospace;
-            border-top: 1px solid var(--weathered-iron);
+            border-top: 1px solid rgba(184, 134, 85, 0.2);
+            position: relative;
+            z-index: 10;
         }
         .prompt { color: var(--text-muted); }
         .command { color: var(--terminal-green); }
 
-        /* Utility */
+        /* Magnetic UI Buttons */
         .btn {
             display: inline-block;
             margin-top: 2rem;
-            padding: 0.8rem 1.5rem;
-            background: transparent;
+            padding: 1rem 2rem;
+            background: rgba(184, 134, 85, 0.1);
             color: var(--bronze-glow);
-            border: 1px solid var(--bronze-glow);
+            border: 1px solid rgba(184, 134, 85, 0.3);
+            border-radius: 8px;
             text-decoration: none;
             text-transform: uppercase;
             font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: background 0.3s, color 0.3s;
+            letter-spacing: 2px;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        .btn:hover { background: var(--bronze-glow); color: var(--void-black); }
-
-        /* Animations */
-        @keyframes lfo-pulse {
-            0% { box-shadow: 0 0 0px rgba(184, 134, 85, 0); }
-            50% { box-shadow: 0 0 15px rgba(184, 134, 85, 0.4); }
-            100% { box-shadow: 0 0 0px rgba(184, 134, 85, 0); }
+        .btn:hover {
+            background: rgba(184, 134, 85, 0.2);
+            border: 1px solid var(--bronze-glow);
+            text-shadow: 0 0 8px rgba(184, 134, 85, 0.6);
+            box-shadow: 0 0 20px rgba(184, 134, 85, 0.2);
         }
-        .arsenal-card:hover { animation: lfo-pulse 2s infinite ease-in-out; border-color: var(--bronze-glow); }
 
+        /* Terminal Animations */
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
@@ -174,7 +172,7 @@ body {
         .scanline-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1) 51%);
-            background-size: 100% 4px; pointer-events: none; z-index: 10; opacity: 0.3;
+            background-size: 100% 4px; pointer-events: none; z-index: 20; opacity: 0.3;
         }
 
         /* Mobile Responsiveness */
@@ -188,14 +186,17 @@ body {
 <body>
     <div class="scanline-overlay"></div>
 
-    <div class="container">
-        <!-- Hero Section -->
-        <section class="hero">
+    <!-- Hero Section -->
+    <section class="hero">
+        <canvas id="lfoWaveform" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.4;"></canvas>
+        <div class="container">
             <h1>Architecting Order<br>From Chaos.</h1>
             <p>Advanced IT Service Management. Systems Automation. Sovereign Cloud Infrastructure.</p>
             <div><a href="#arsenal" class="btn">[ Initialize_Overview ]</a></div>
-        </section>
+        </div>
+    </section>
 
+    <div class="container">
         <!-- Technical Arsenal Grid -->
         <section id="arsenal" style="padding-top: 4rem;">
             <h2>Technical Arsenal</h2>
@@ -258,5 +259,50 @@ body {
             <p class="prompt">> <span class="cursor"></span></p>
         </div>
     </footer>
+
+    <!-- LFO Waveform Canvas Animation -->
+    <script>
+        const canvas = document.getElementById('lfoWaveform');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let time = 0;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = document.querySelector('.hero').offsetHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+            
+            const waves = [
+                { frequency: 0.01, amplitude: 50, speed: 0.02, color: 'rgba(184, 134, 85, 0.1)' },
+                { frequency: 0.02, amplitude: 30, speed: 0.03, color: 'rgba(184, 134, 85, 0.2)' },
+                { frequency: 0.005, amplitude: 80, speed: 0.01, color: 'rgba(184, 134, 85, 0.15)' }
+            ];
+
+            ctx.globalCompositeOperation = 'lighter';
+
+            waves.forEach(wave => {
+                ctx.beginPath();
+                ctx.moveTo(0, height / 2);
+                for (let i = 0; i < width; i++) {
+                    const y = Math.sin(i * wave.frequency + time * wave.speed) * wave.amplitude 
+                            * Math.sin(time * 0.01); 
+                    ctx.lineTo(i, (height / 2) + y);
+                }
+                ctx.strokeStyle = wave.color;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            });
+
+            time++;
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
 </body>
 </html>
