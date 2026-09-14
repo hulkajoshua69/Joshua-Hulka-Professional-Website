@@ -4,198 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joshua Hulka | Systems Architecture & Automation</title>
-    <style>
-        /* Color Palette & CSS Variables */
-        :root {
-            --void-black: #0D0D0F;
-            --raw-steel: #2B2B30;
-            --weathered-iron: #45454A;
-            --oil-bronze: #5C4A3D;
-            --bronze-glow: #B88655;
-            --terminal-green: #4AF626;
-            --text-main: #E0E0E0;
-            --text-muted: #8A8A93;
-        }
-
-        /* Base Reset & Typography */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        /* Suno-inspired dynamic background */
-        body {
-            background-color: var(--void-black);
-            color: var(--text-main);
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            background: linear-gradient(-45deg, #0D0D0F, #1a1a1f, #2a1f18, #0D0D0F);
-            background-size: 400% 400%;
-            animation: ambientShift 15s ease infinite;
-        }
-
-        @keyframes ambientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        h1, h2, h3 { text-transform: uppercase; letter-spacing: 2px; }
-
-        /* Bi-Level Container */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 5; }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-bottom: 2px solid rgba(184, 134, 85, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero h1 { font-size: 4rem; color: var(--text-main); text-shadow: 0 0 15px rgba(184, 134, 85, 0.2); }
-        .hero p { font-size: 1.2rem; color: var(--text-muted); margin-top: 1rem; max-width: 600px; }
-        
-        /* Grid / Arsenal Section */
-        .arsenal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
-        }
-        
-        /* Glassmorphism Cards */
-        .arsenal-card {
-            background: rgba(43, 43, 48, 0.4); 
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(184, 134, 85, 0.1);
-            border-left: 4px solid var(--oil-bronze);
-            padding: 2rem;
-            border-radius: 12px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-        .arsenal-card h3 { color: var(--bronze-glow); font-size: 1rem; margin-bottom: 1rem; }
-        
-        .arsenal-card:hover {
-            background: rgba(43, 43, 48, 0.6);
-            border: 1px solid rgba(184, 134, 85, 0.5);
-            border-left: 4px solid var(--bronze-glow);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px -10px rgba(184, 134, 85, 0.3);
-        }
-
-        .arsenal-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.03), transparent);
-            transform: skewX(-20deg);
-            transition: 0.5s;
-        }
-        .arsenal-card:hover::before { left: 150%; }
-        
-        /* Projects (Bi-Level Flow) */
-        .project-block {
-            display: flex;
-            align-items: center;
-            gap: 4rem;
-            margin: 6rem 0;
-        }
-        .project-block:nth-child(even) { flex-direction: row-reverse; }
-        .project-info { flex: 1; }
-        .project-media {
-            flex: 1;
-            background: rgba(69, 69, 74, 0.3);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            height: 300px;
-            border: 1px solid rgba(184, 134, 85, 0.2);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-        }
-
-        /* Glassmorphism Terminal Footer */
-        .terminal-footer {
-            background: rgba(13, 13, 15, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 3rem;
-            font-family: 'Courier New', Courier, monospace;
-            border-top: 1px solid rgba(184, 134, 85, 0.2);
-            position: relative;
-            z-index: 10;
-        }
-        .prompt { color: var(--text-muted); }
-        .command { color: var(--terminal-green); }
-
-        /* Magnetic UI Buttons */
-        .btn {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 1rem 2rem;
-            background: rgba(184, 134, 85, 0.1);
-            color: var(--bronze-glow);
-            border: 1px solid rgba(184, 134, 85, 0.3);
-            border-radius: 8px;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            backdrop-filter: blur(4px);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-        .btn:hover {
-            background: rgba(184, 134, 85, 0.2);
-            border: 1px solid var(--bronze-glow);
-            text-shadow: 0 0 8px rgba(184, 134, 85, 0.6);
-            box-shadow: 0 0 20px rgba(184, 134, 85, 0.2);
-        }
-
-        /* Terminal Animations */
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        .cursor { display: inline-block; width: 10px; height: 1.2em; background: var(--terminal-green); vertical-align: middle; animation: blink 1s step-end infinite; }
-        
-        @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100vh); }
-        }
-        .scanline-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1) 51%);
-            background-size: 100% 4px; pointer-events: none; z-index: 20; opacity: 0.3;
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .project-block, .project-block:nth-child(even) { flex-direction: column; }
-            .project-media { width: 100%; }
-        }
-
-        /* Scroll Reveal Hidden State */
-        .reveal {
-        opacity: 0;
-        transform: translateY(40px);
-        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-
-        /* Scroll Reveal Active State */
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="scanline-overlay"></div>
@@ -215,19 +24,19 @@
         <section id="arsenal" style="padding-top: 4rem;">
             <h2>Technical Arsenal</h2>
             <div class="arsenal-grid">
-                <div class="arsenal-card">
+                <div class="arsenal-card reveal">
                     <h3>Scripting & Development</h3>
                     <p>Building the tools that build the network. Custom workflows in PowerShell, Go, and JSON.</p>
                 </div>
-                <div class="arsenal-card">
+                <div class="arsenal-card reveal">
                     <h3>Cloud & Infrastructure</h3>
                     <p>Microsoft Azure (AZ-900, MS-900). Vultr private deployments, WireGuard VPNs, and Pi-hole DNS sinkholes.</p>
                 </div>
-                <div class="arsenal-card">
+                <div class="arsenal-card reveal">
                     <h3>APIs & Automation</h3>
                     <p>Eliminating the manual element through deep Microsoft Graph API integrations.</p>
                 </div>
-                <div class="arsenal-card">
+                <div class="arsenal-card reveal">
                     <h3>Knowledge Management</h3>
                     <p>Architecting data relationships via Obsidian, Zettelkasten workflows, Markdown, and Dataview.</p>
                 </div>
@@ -238,7 +47,7 @@
         <section style="padding: 4rem 0;">
             <h2>Engineering Implementations</h2>
             
-            <div class="project-block">
+            <div class="project-block reveal">
                 <div class="project-info">
                     <h3 style="color: var(--bronze-glow); margin-bottom: 1rem;">Project Alpha: Automated Lifecycle Management</h3>
                     <p>Engineered a custom PowerShell GUI utility to automate complex user lifecycle tasks, drastically reducing manual provisioning time and mitigating human error at the service desk level.</p>
@@ -248,7 +57,7 @@
                 </div>
             </div>
 
-            <div class="project-block">
+            <div class="project-block reveal">
                 <div class="project-info">
                     <h3 style="color: var(--bronze-glow); margin-bottom: 1rem;">Project Beta: Go-Based Diagnostic Engine</h3>
                     <p>Developed a lightweight, high-performance network troubleshooting application in Go to rapidly identify and isolate infrastructure anomalies.</p>
@@ -266,86 +75,14 @@
             <p class="prompt">C:\Users\Admin> <span class="command">Initiate_Connection.exe</span></p>
             <p class="prompt">Status: Awaiting input...</p>
             <p class="prompt">Select protocol: 
-    <a href="mailto:hulka.joshua@gmail.com" class="command" style="text-decoration:none;">[ Email ]</a> 
-    <a href="https://www.linkedin.com/in/joshuahulka/" target="_blank" rel="noopener noreferrer" class="command" style="text-decoration:none;">[ LinkedIn ]</a> 
-    <a href="https://github.com/hulkajoshua69" target="_blank" rel="noopener noreferrer" class="command" style="text-decoration:none;">[ GitHub ]</a>
-</p>
+                <a href="mailto:hulka.joshua@gmail.com" class="command" style="text-decoration:none;">[ Email ]</a> 
+                <a href="https://www.linkedin.com/in/joshuahulka/" target="_blank" rel="noopener noreferrer" class="command" style="text-decoration:none;">[ LinkedIn ]</a> 
+                <a href="https://github.com/hulkajoshua69" target="_blank" rel="noopener noreferrer" class="command" style="text-decoration:none;">[ GitHub ]</a>
             </p>
             <p class="prompt">> <span class="cursor"></span></p>
         </div>
     </footer>
 
-    <!-- LFO Waveform Canvas Animation -->
-    <script>
-    const canvas = document.getElementById('lfoWaveform');
-    const ctx = canvas.getContext('2d');
-    
-    let width, height;
-    let time = 0;
-    
-    // Track mouse coordinates
-    let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    window.addEventListener('mousemove', (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-    });
-
-    function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = document.querySelector('.hero').offsetHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    function draw() {
-        ctx.clearRect(0, 0, width, height);
-        
-        // Modulators based on cursor position
-        const freqMod = (mouse.x / width) * 0.02 + 0.005;
-        const ampMod = (mouse.y / height) * 60 + 20;
-
-        const waves = [
-            { freqOffset: 1, ampOffset: 1, speed: 0.02, color: 'rgba(184, 134, 85, 0.1)' },
-            { freqOffset: 1.5, ampOffset: 0.6, speed: 0.03, color: 'rgba(184, 134, 85, 0.2)' },
-            { freqOffset: 0.5, ampOffset: 1.2, speed: 0.01, color: 'rgba(184, 134, 85, 0.15)' }
-        ];
-
-        ctx.globalCompositeOperation = 'lighter';
-
-        waves.forEach(wave => {
-            ctx.beginPath();
-            ctx.moveTo(0, height / 2);
-            for (let i = 0; i < width; i++) {
-                // Apply the interactive modulators
-                const currentFreq = freqMod * wave.freqOffset;
-                const currentAmp = ampMod * wave.ampOffset;
-                
-                const y = Math.sin(i * currentFreq + time * wave.speed) * currentAmp 
-                        * Math.sin(time * 0.01); 
-                ctx.lineTo(i, (height / 2) + y);
-            }
-            ctx.strokeStyle = wave.color;
-            ctx.lineWidth = 2;
-            ctx.stroke();
-        });
-
-        time++;
-        requestAnimationFrame(draw);
-    }
-    draw();
-</script>
-
-<script>
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
-        });
-    }, { threshold: 0.1 }); // Triggers when 10% of the element is visible
-
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-</script>
-    
+    <script src="script.js"></script>
 </body>
 </html>
