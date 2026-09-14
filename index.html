@@ -181,6 +181,20 @@
             .project-block, .project-block:nth-child(even) { flex-direction: column; }
             .project-media { width: 100%; }
         }
+
+        /* Scroll Reveal Hidden State */
+        .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        /* Scroll Reveal Active State */
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
     </style>
 </head>
 <body>
@@ -320,5 +334,18 @@
     }
     draw();
 </script>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1 }); // Triggers when 10% of the element is visible
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+</script>
+    
 </body>
 </html>
