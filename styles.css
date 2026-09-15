@@ -33,12 +33,24 @@ h1, h2, h3 { text-transform: uppercase; letter-spacing: 2px; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 5; }
 
 .profile-photo {
-    width: 250px; /* Adjust this value to change the size */
-    height: 250px; /* Must match the width for a perfect circle */
-    border-radius: 50%; /* This creates the circle */
-    object-fit: cover; /* Ensures the photo fills the circle without distortion */
-    display: block; 
-    margin: 0 auto; /* Centers the image horizontally if it's in a container */
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 2rem auto;
+    
+    /* Industrial Aesthetic */
+    border: 3px solid var(--bronze-glow);
+    box-shadow: 8px 8px 0px var(--oil-bronze);
+    filter: contrast(115%) grayscale(25%);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.profile-photo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px -10px rgba(184, 134, 85, 0.4);
+    filter: contrast(100%) grayscale(0%);
 }
 
 .hero {
