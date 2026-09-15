@@ -32,6 +32,15 @@ h1, h2, h3 { text-transform: uppercase; letter-spacing: 2px; }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 5; }
 
+.profile-photo {
+    width: 250px; /* Adjust this value to change the size */
+    height: 250px; /* Must match the width for a perfect circle */
+    border-radius: 50%; /* This creates the circle */
+    object-fit: cover; /* Ensures the photo fills the circle without distortion */
+    display: block; 
+    margin: 0 auto; /* Centers the image horizontally if it's in a container */
+}
+
 .hero {
     height: 100vh;
     display: flex;
