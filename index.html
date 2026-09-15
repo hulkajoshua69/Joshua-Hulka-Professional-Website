@@ -8,9 +8,18 @@
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 </head>
 <body>
-    <div class="scanline-overlay"></div>                
-            </div>
-        </section>
+    <div class="scanline-overlay"></div>
+
+                <!-- Hero Section -->
+    <section class="hero">
+        <canvas id="lfoWaveform" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.4;"></canvas>
+        <div class="container">
+            <img class="profile-photo" src="assets/Joshua%20Professional%20Headshot.JPG" alt="Joshua Professional Headshot">
+            <h1>Architecting Order<br>From Chaos.</h1>
+            <p>Advanced IT Service Management. Systems Automation. Sovereign Cloud Infrastructure.</p>
+            <div><a href="#arsenal" class="btn">[ Initialize_Overview ]</a></div>
+    </section>
+
 
     <div class="container">
         <!-- Technical Arsenal Grid -->
@@ -52,16 +61,7 @@
             </div>
         </section>
 
-            <!-- Hero Section -->
-    <section class="hero">
-        <canvas id="lfoWaveform" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.4;"></canvas>
-        <div class="container">
-            <img class="profile-photo" src="assets/Joshua%20Professional%20Headshot.JPG" alt="Joshua Professional Headshot">
-            <h1>Architecting Order<br>From Chaos.</h1>
-            <p>Advanced IT Service Management. Systems Automation. Sovereign Cloud Infrastructure.</p>
-            <div><a href="#arsenal" class="btn">[ Initialize_Overview ]</a></div>
-
-                        <!-- Operational History (Experience) -->
+                                <!-- Operational History (Experience) -->
         <section id="experience" style="padding: 4rem 0;">
         <h2>Operational History</h2>
         
@@ -96,7 +96,8 @@
         </div>
     </section>
 
-        <!-- Featured Projects -->
+
+<!-- Featured Projects -->
         <section style="padding: 4rem 0;">
             <h2>Engineering Implementations</h2>
             
@@ -105,8 +106,226 @@
                     <h3 style="color: var(--bronze-glow); margin-bottom: 1rem;">Project Alpha: Automated Lifecycle Management</h3>
                     <p>Engineered a custom PowerShell GUI utility to automate complex user lifecycle tasks, drastically reducing manual provisioning time and mitigating human error at the service desk level.</p>
                 </div>
-                <div class="project-media">
-                    [ Media Placeholder: PowerShell GUI Screenshot ]
+                <div class="project-media code-box">
+<pre><code>&lt;#
+.SYNOPSIS
+    LSP Offboarding Automator
+    Automates Standard and Immediate offboarding procedures for Legacy Service Partners.
+#&gt;
+
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
+
+# -------------------------------------------------------------------------
+# GUI FORM SETUP
+# -------------------------------------------------------------------------
+$form = New-Object System.Windows.Forms.Form
+$form.Text = "LSP Offboarding Automator"
+$form.Size = New-Object System.Drawing.Size(500, 620)
+$form.StartPosition = "CenterScreen"
+$form.FormBorderStyle = 'FixedDialog'
+$form.MaximizeBox = $false
+
+$font = New-Object System.Drawing.Font("Segoe UI", 9)
+$form.Font = $font
+
+# User Principal Name (UPN)
+$lblUPN = New-Object System.Windows.Forms.Label
+$lblUPN.Text = "User UPN or Email:"
+$lblUPN.Location = New-Object System.Drawing.Point(20, 20)
+$lblUPN.Size = New-Object System.Drawing.Size(120, 20)
+$form.Controls.Add($lblUPN)
+
+$txtUPN = New-Object System.Windows.Forms.TextBox
+$txtUPN.Location = New-Object System.Drawing.Point(150, 18)
+$txtUPN.Size = New-Object System.Drawing.Size(300, 20)
+$form.Controls.Add($txtUPN)
+
+# Offboarding Type Dropdown
+$lblType = New-Object System.Windows.Forms.Label
+$lblType.Text = "Offboarding Type:"
+$lblType.Location = New-Object System.Drawing.Point(20, 60)
+$lblType.Size = New-Object System.Drawing.Size(120, 20)
+$form.Controls.Add($lblType)
+
+$cmbType = New-Object System.Windows.Forms.ComboBox
+$cmbType.Location = New-Object System.Drawing.Point(150, 58)
+$cmbType.Size = New-Object System.Drawing.Size(300, 20)
+$cmbType.DropDownStyle = 'DropDownList'
+$cmbType.Items.Add("Standard") | Out-Null
+$cmbType.Items.Add("Immediate (P1 Disable Only)") | Out-Null
+$cmbType.SelectedIndex = 0
+$form.Controls.Add($cmbType)
+
+# Contact Email (For Auto-Reply)
+$lblContact = New-Object System.Windows.Forms.Label
+$lblContact.Text = "Auto-Reply Contact:"
+$lblContact.Location = New-Object System.Drawing.Point(20, 100)
+$lblContact.Size = New-Object System.Drawing.Size(120, 20)
+$form.Controls.Add($lblContact)
+
+$txtContact = New-Object System.Windows.Forms.TextBox
+$txtContact.Location = New-Object System.Drawing.Point(150, 98)
+$txtContact.Size = New-Object System.Drawing.Size(300, 20)
+$txtContact.Text = "support@legacyservicepartners.com"
+$form.Controls.Add($txtContact)
+
+# Options Checkboxes
+$chkShared = New-Object System.Windows.Forms.CheckBox
+$chkShared.Text = "Convert to Shared Mailbox"
+$chkShared.Location = New-Object System.Drawing.Point(20, 140)
+$chkShared.Size = New-Object System.Drawing.Size(200, 20)
+$chkShared.Checked = $true
+$form.Controls.Add($chkShared)
+
+$chkAutoReply = New-Object System.Windows.Forms.CheckBox
+$chkAutoReply.Text = "Enable Auto-Reply"
+$chkAutoReply.Location = New-Object System.Drawing.Point(240, 140)
+$chkAutoReply.Size = New-Object System.Drawing.Size(200, 20)
+$chkAutoReply.Checked = $true
+$form.Controls.Add($chkAutoReply)
+
+# Submit Button
+$btnSubmit = New-Object System.Windows.Forms.Button
+$btnSubmit.Text = "Execute Offboarding"
+$btnSubmit.Location = New-Object System.Drawing.Point(20, 180)
+$btnSubmit.Size = New-Object System.Drawing.Size(430, 40)
+$btnSubmit.BackColor = [System.Drawing.Color]::LightCoral
+$btnSubmit.Font = New-Object System.Drawing.Font("Segoe UI", 10, [System.Drawing.FontStyle]::Bold)
+$form.Controls.Add($btnSubmit)
+
+# Log Output Box
+$txtLog = New-Object System.Windows.Forms.TextBox
+$txtLog.Location = New-Object System.Drawing.Point(20, 240)
+$txtLog.Size = New-Object System.Drawing.Size(430, 310)
+$txtLog.Multiline = $true
+$txtLog.ScrollBars = "Vertical"
+$txtLog.ReadOnly = $true
+$txtLog.BackColor = [System.Drawing.Color]::WhiteSmoke
+$form.Controls.Add($txtLog)
+
+# -------------------------------------------------------------------------
+# FUNCTIONS & EXECUTION LOGIC
+# -------------------------------------------------------------------------
+function Write-GuiLog ($Message) {
+    $Timestamp = Get-Date -Format "HH:mm:ss"
+    $txtLog.AppendText("[$Timestamp] $Message`r`n")
+    $form.Refresh()
+}
+
+$btnSubmit.Add_Click({
+    $UPN = $txtUPN.Text.Trim()
+    $Type = $cmbType.SelectedItem.ToString()
+    $ContactEmail = $txtContact.Text.Trim()
+
+    if ([string]::IsNullOrWhiteSpace($UPN)) {
+        [System.Windows.Forms.MessageBox]::Show("Please enter a User UPN.", "Error", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
+        return
+    }
+
+    $txtLog.Clear()
+    Write-GuiLog "Starting $Type for $UPN..."
+
+    try {
+        # 1. Connect to Microsoft Graph & Exchange
+        Write-GuiLog "Connecting to Microsoft Graph and Exchange Online..."
+        Connect-MgGraph -Scopes "User.ReadWrite.All", "Directory.ReadWrite.All", "GroupMember.ReadWrite.All" -NoWelcome
+        Connect-ExchangeOnline -ShowProgress $false -ShowBanner $false
+
+        # 2. Retrieve the User
+        $User = Get-MgUser -UserId $UPN -ErrorAction Stop
+        $OldName = $User.DisplayName
+
+        # 3. Step 01: Disable O365 Account (Runs for both Immediate and Standard)
+        Write-GuiLog "Blocking sign-in and resetting password..."
+        $RandomPassword = "LSP-" + ([guid]::NewGuid().ToString().Substring(0,8)) + "!A1"
+        $PasswordProfile = @{
+            Password = $RandomPassword
+            ForceChangePasswordNextSignIn = $false
+        }
+        Update-MgUser -UserId $User.Id -AccountEnabled:$false -PasswordProfile $PasswordProfile
+        
+        Write-GuiLog "Revoking all active sign-in sessions..."
+        Revoke-MgUserSignInSession -UserId $User.Id | Out-Null
+
+        # 4. Halt if Immediate Offboarding
+        if ($Type -like "*Immediate*") {
+            Write-GuiLog "========================================"
+            Write-GuiLog "IMMEDIATE OFFBOARDING LOCKDOWN COMPLETE."
+            Write-GuiLog "Account Disabled: Yes"
+            Write-GuiLog "Sessions Revoked: Yes"
+            Write-GuiLog "Password Reset: Yes"
+            Write-GuiLog "========================================"
+            Write-GuiLog "ACTION REQUIRED: Please proceed with ServiceTitan & Adobe offboarding manually, then close the P1 ticket."
+            return
+        }
+
+        # 5. Step 02: Modify O365 Account (Standard Only)
+        Write-GuiLog "Hiding user from Global Address List (GAL)..."
+        Set-Mailbox -Identity $UPN -HiddenFromAddressListsEnabled $true
+
+        Write-GuiLog "Prepending 'ZZ -' to Display Name..."
+        $NewName = "ZZ - $OldName"
+        Update-MgUser -UserId $User.Id -DisplayName $NewName
+
+        # Conditional Shared Mailbox
+        if ($chkShared.Checked) {
+            Write-GuiLog "Converting mailbox to Shared..."
+            Set-Mailbox -Identity $UPN -Type Shared
+            $SharedStatus = "Yes"
+        } else {
+            Write-GuiLog "Skipping Shared Mailbox conversion per user selection..."
+            $SharedStatus = "Skipped"
+        }
+
+        # Conditional Auto-Reply
+        if ($chkAutoReply.Checked) {
+            Write-GuiLog "Configuring Auto-Reply..."
+            $AutoReplyText = "This mailbox is no longer being monitored. Please contact $ContactEmail for assistance."
+            Set-MailboxAutoReplyConfiguration -Identity $UPN -AutoReplyState Enabled -InternalMessage $AutoReplyText -ExternalMessage $AutoReplyText
+            $ReplyStatus = "Yes"
+        } else {
+            Write-GuiLog "Skipping Auto-Reply configuration per user selection..."
+            $ReplyStatus = "Skipped"
+        }
+
+        Write-GuiLog "Applying Dynamic Group Exclusion Custom Attributes..."
+        Set-Mailbox -Identity $UPN -CustomAttribute1 "Exclude All Legacy" -CustomAttribute2 "Exclude All Company" -CustomAttribute3 "Exclude All Users" -CustomAttribute15 "Exclude Legacy Service Partners Group"
+
+        Write-GuiLog "Stripping Group Memberships (This automatically removes Group-Based Licenses like AZ_E1/AZ_E3)..."
+        $Groups = Get-MgUserMemberOf -UserId $User.Id
+        foreach ($Group in $Groups) {
+            if ($Group.AdditionalProperties["@odata.type"] -eq "#microsoft.graph.group") {
+                Remove-MgGroupMemberByRef -GroupId $Group.Id -DirectoryObjectId $User.Id -ErrorAction SilentlyContinue
+            }
+        }
+
+        Write-GuiLog "Removing direct O365 licenses..."
+        $Licenses = Get-MgUserLicenseDetail -UserId $User.Id
+        foreach ($License in $Licenses) {
+            Set-MgUserLicense -UserId $User.Id -RemoveLicenses @($License.SkuId) -AddLicenses @{} -ErrorAction SilentlyContinue
+        }
+
+        Write-GuiLog "========================================"
+        Write-GuiLog "STANDARD OFFBOARDING COMPLETE."
+        Write-GuiLog "User: $UPN"
+        Write-GuiLog "New Name: $NewName"
+        Write-GuiLog "- Locked out & Sessions Revoked: Yes"
+        Write-GuiLog "- Hidden from GAL: Yes"
+        Write-GuiLog "- Converted to Shared: $SharedStatus"
+        Write-GuiLog "- Auto-Reply Configured: $ReplyStatus"
+        Write-GuiLog "- Custom Attributes (1,2,3,15) Applied: Yes"
+        Write-GuiLog "- Groups & Licenses Removed: Yes"
+        Write-GuiLog "========================================"
+        Write-GuiLog "REMINDER: Verify Admin Roles and offboard external apps (ServiceTitan/Adobe) if applicable."
+
+    } catch {
+        Write-GuiLog "ERROR: $($_.Exception.Message)"
+    }
+})
+
+$form.ShowDialog() | Out-Null
+</code></pre>
                 </div>
             </div>
 
