@@ -244,3 +244,27 @@ h1, h2, h3 { text-transform: uppercase; letter-spacing: 2px; }
         gap: 0.5rem;
     }
 }
+
+/* Certification Badges */
+.cert-grid {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.cert-badge {
+    width: 160px;
+    height: auto;
+    /* Drop-shadow hugs the shape of transparent PNGs perfectly */
+    filter: drop-shadow(0 4px 10px rgba(184, 134, 85, 0.15));
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.cert-badge:hover {
+    transform: translateY(-8px) scale(1.05);
+    filter: drop-shadow(0 15px 25px rgba(74, 246, 38, 0.3)); /* Terminal green glow */
+}
