@@ -197,3 +197,50 @@ h1, h2, h3 { text-transform: uppercase; letter-spacing: 2px; }
     .project-block, .project-block:nth-child(even) { flex-direction: column; }
     .project-media { width: 100%; }
 }
+
+/* Professional Experience Blocks */
+.experience-block {
+    background: rgba(43, 43, 48, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(184, 134, 85, 0.1);
+    border-left: 4px solid var(--terminal-green);
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.experience-block:hover {
+    border-left: 4px solid var(--bronze-glow);
+    transform: translateX(10px);
+    background: rgba(43, 43, 48, 0.6);
+    box-shadow: 0 10px 30px -10px rgba(184, 134, 85, 0.2);
+}
+
+.exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(184, 134, 85, 0.2);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.experience-block ul {
+    list-style-type: square;
+    padding-left: 1.5rem;
+    color: var(--text-muted);
+}
+
+.experience-block li {
+    margin-bottom: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .exp-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
