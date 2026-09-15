@@ -330,14 +330,126 @@ $form.ShowDialog() | Out-Null
             </div>
 
             <div class="project-block reveal">
-                <div class="project-info">
-                    <h3 style="color: var(--bronze-glow); margin-bottom: 1rem;">Project Beta: Go-Based Diagnostic Engine</h3>
-                    <p>Developed a lightweight, high-performance network troubleshooting application in Go to rapidly identify and isolate infrastructure anomalies.</p>
-                </div>
-                <div class="project-media">
-                    [ Media Placeholder: Go CLI/App Screenshot ]
-                </div>
-            </div>
+    <div class="project-info">
+        <h3 style="color: var(--bronze-glow); margin-bottom: 1rem;">Project Beta: Go-Based Diagnostic Engine</h3>
+        <p>Developed a lightweight, high-performance network troubleshooting application in Go to rapidly identify and isolate infrastructure anomalies.</p>
+    </div>
+    <div class="project-media code-box">
+<pre><code>package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"regexp"
+)
+
+// pingTarget runs concurrently. It sends the result back through the provided channel.
+func pingTarget(name string, ip string, resultChan chan&lt;- string) {
+	if ip == "Not Found" {
+		resultChan &lt;- fmt.Sprintf("&lt;tr&gt;&lt;td&gt;Ping %s&lt;/td&gt;&lt;td style='color: gray;'&gt;N/A&lt;/td&gt;&lt;/tr&gt;", name)
+		return
+	}
+
+	// -n 1 sends a single packet. -w 1000 times out after 1 second.
+	cmd := exec.Command("ping", "-n", "1", "-w", "1000", ip)
+	output, _ := cmd.CombinedOutput()
+
+	// Windows ping can sometimes return a 0 exit code even on failure (e.g., "Destination net unreachable").
+	// Searching the output for "TTL=" is the most bulletproof way to confirm a successful reply.
+	if regexp.MustCompile(`TTL=`).Match(output) {
+		resultChan &lt;- fmt.Sprintf("&lt;tr&gt;&lt;td&gt;Ping %s (%s)&lt;/td&gt;&lt;td style='color: green;'&gt;Reachable&lt;/td&gt;&lt;/tr&gt;", name, ip)
+	} else {
+		resultChan &lt;- fmt.Sprintf("&lt;tr&gt;&lt;td&gt;Ping %s (%s)&lt;/td&gt;&lt;td style='color: red;'&gt;&lt;strong&gt;Unreachable&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;", name, ip)
+	}
+}
+
+func main() {
+	// 1. Execute ipconfig and extract variables
+	cmd := exec.Command("ipconfig")
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Fatalf("Failed to execute command: %v\n", err)
+	}
+
+	outputStr := string(output)
+	ipv4Regex := regexp.MustCompile(`IPv4 Address[.\s]+:\s+([\d.]+)`)
+	gatewayRegex := regexp.MustCompile(`Default Gateway[.\s]+:\s+([\d.]+)`)
+
+	ipv4Match := ipv4Regex.FindStringSubmatch(outputStr)
+	gatewayMatch := gatewayRegex.FindStringSubmatch(outputStr)
+
+	ipv4 := "Not Found"
+	gateway := "Not Found"
+
+	if len(ipv4Match) &gt; 1 {
+		ipv4 = ipv4Match[1]
+	}
+	if len(gatewayMatch) &gt; 1 {
+		gateway = gatewayMatch[1]
+	}
+
+	// 2. Set up Channels to receive our ping results
+	// Channels are pipes that connect concurrent goroutines
+	gatewayChan := make(chan string)
+	internetChan := make(chan string)
+
+	// 3. Launch the pings as concurrent goroutines using the 'go' keyword
+	go pingTarget("Gateway", gateway, gatewayChan)
+	go pingTarget("Internet", "8.8.8.8", internetChan)
+
+	// 4. Wait for and receive the results from the channels
+	// The main function will pause here until BOTH channels receive data
+	gatewayResult := &lt;-gatewayChan
+	internetResult := &lt;-internetChan
+
+	// 5. Generate and save the HTML report
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatalf("Failed to find home directory: %v\n", err)
+	}
+	desktopPath := filepath.Join(homeDir, "Desktop", "DYOPATH_Network_Diag.html")
+
+	htmlContent := fmt.Sprintf(`
+	&lt;!DOCTYPE html&gt;
+	&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;L2 Diagnostic Report&lt;/title&gt;
+		&lt;style&gt;
+			body { font-family: "Segoe UI", Arial, sans-serif; padding: 20px; background-color: #f9f9f9; }
+			.container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 450px; }
+			table { border-collapse: collapse; width: 100%%; margin-top: 15px; }
+			th, td { border: 1px solid #ddd; text-align: left; padding: 10px; }
+			th { background-color: #005A9C; color: white; }
+		&lt;/style&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;div class="container"&gt;
+			&lt;h2&gt;Network Diagnostic Report&lt;/h2&gt;
+			&lt;table&gt;
+				&lt;tr&gt;&lt;th&gt;Metric&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;
+				&lt;tr&gt;&lt;td&gt;IPv4 Address&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;
+				&lt;tr&gt;&lt;td&gt;Default Gateway&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;
+				%s
+				%s
+			&lt;/table&gt;
+		&lt;/div&gt;
+	&lt;/body&gt;
+	&lt;/html&gt;
+	`, ipv4, gateway, gatewayResult, internetResult)
+
+	err = os.WriteFile(desktopPath, []byte(htmlContent), 0644)
+	if err != nil {
+		log.Fatalf("Failed to write HTML file: %v\n", err)
+	}
+
+	fmt.Printf("Success! Report saved to: %s\n", desktopPath)
+}
+</code></pre>
+    </div>
+</div>
         </section>
     </div>
 
