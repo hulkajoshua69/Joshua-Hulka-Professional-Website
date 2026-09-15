@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <!-- Raw Steel Background with Oil Bronze Border -->
+    <rect width="512" height="512" rx="120" fill="#2B2B30" stroke="#5C4A3D" stroke-width="24"/>
+    
+    <!-- Bronze Glow "JH" Text in Typewriter Font -->
+    <text x="256" y="345" font-family="'American Typewriter', 'Courier New', Courier, monospace" font-size="250" font-weight="bold" fill="#B88655" text-anchor="middle">JH</text>
+</svg>
