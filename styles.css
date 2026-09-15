@@ -268,3 +268,36 @@ h1, h2, h3 { text-transform: uppercase; letter-spacing: 2px; }
     transform: translateY(-8px) scale(1.05);
     filter: drop-shadow(0 15px 25px rgba(74, 246, 38, 0.3)); /* Terminal green glow */
 }
+
+/* Scrollable Code Media Block */
+.project-media.code-box {
+    display: block;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.project-media pre {
+    margin: 0;
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.project-media code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    color: var(--terminal-green);
+    line-height: 1.4;
+    white-space: pre;
+}
+
+/* Custom Tactical Scrollbar */
+.project-media.code-box::-webkit-scrollbar {
+    width: 8px;
+}
+.project-media.code-box::-webkit-scrollbar-track {
+    background: rgba(13, 13, 15, 0.5);
+}
+.project-media.code-box::-webkit-scrollbar-thumb {
+    background: var(--oil-bronze);
+    border-radius: 4px;
+}
