@@ -204,7 +204,7 @@ h1, h2, h3 { text-transform: uppercase; letter-spacing: 2px; }
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(184, 134, 85, 0.1);
-    border-left: 4px solid var(--terminal-green);
+    border-left: 4px solid var(--bronze-glow);
     padding: 2rem;
     border-radius: 12px;
     margin-bottom: 2rem;
@@ -212,7 +212,7 @@ h1, h2, h3 { text-transform: uppercase; letter-spacing: 2px; }
 }
 
 .experience-block:hover {
-    border-left: 4px solid var(--bronze-glow);
+    border-left: 4px solid var(--terminal-green);
     transform: translateX(10px);
     background: rgba(43, 43, 48, 0.6);
     box-shadow: 0 10px 30px -10px rgba(184, 134, 85, 0.2);
